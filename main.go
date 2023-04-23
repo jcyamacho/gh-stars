@@ -1,26 +1,13 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
-	"github.com/cli/go-gh"
+	"github.com/jcyamacho/gh-stars/cmd"
 )
 
 func main() {
-	fmt.Println("hi world, this is the gh-stars extension!")
-	client, err := gh.RESTClient(nil)
-	if err != nil {
-		fmt.Println(err)
-		return
+	if err := cmd.Execute(); err != nil {
+		log.Fatalf("Error executing CLI: %v", err)
 	}
-	response := struct {Login string}{}
-	err = client.Get("user", &response)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Printf("running as %s\n", response.Login)
 }
-
-// For more examples of using go-gh, see:
-// https://github.com/cli/go-gh/blob/trunk/example_gh_test.go
